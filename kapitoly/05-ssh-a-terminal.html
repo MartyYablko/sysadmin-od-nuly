@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 5 – Terminál, SSH a zabezpečení</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="04-linux-instalace.html">← Předchozí</a></li>
+    <li><a href="06-uzivatele-skupiny-prava.html">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 5: Terminál, SSH a zabezpečení</h2>
+        <h3>Základní pracovní prostředí Linux admina</h3>
+      </hgroup>
+
+      <!-- TERMINÁL -->
+      <article>
+        <h3>Co je terminál</h3>
+        <p>
+          Terminál (shell) je textové rozhraní pro komunikaci se systémem.
+          Na serverech se používá téměř výhradně – bez grafiky.
+        </p>
+      </article>
+
+      <article>
+        <h3>Základní příkazy</h3>
+        <ul>
+          <li><code>pwd</code> – kde se nacházíš</li>
+          <li><code>ls</code> – výpis souborů</li>
+          <li><code>cd</code> – změna adresáře</li>
+          <li><code>whoami</code> – aktuální uživatel</li>
+          <li><code>clear</code> – vyčištění obrazovky</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Struktura souborového systému</h3>
+        <ul>
+          <li><code>/</code> – root</li>
+          <li><code>/home</code> – domovy uživatelů</li>
+          <li><code>/etc</code> – konfigurace</li>
+          <li><code>/var</code> – logy</li>
+          <li><code>/bin</code>, <code>/usr/bin</code> – programy</li>
+        </ul>
+      </article>
+
+      <!-- SSH -->
+      <article>
+        <h3>Co je SSH</h3>
+        <p>
+          SSH (Secure Shell) je protokol pro bezpečné vzdálené přihlášení
+          k serveru pomocí terminálu.
+        </p>
+      </article>
+
+      <article>
+        <h3>Přihlášení přes SSH</h3>
+        <pre><code>ssh uzivatel@IP_ADRESA</code></pre>
+      </article>
+
+      <!-- HARDENING -->
+      <article>
+        <h3>SSH klíče – bezpečný způsob přihlášení</h3>
+        <pre><code>ssh-keygen -t ed25519</code></pre>
+        <pre><code>ssh-copy-id uzivatel@server</code></pre>
+      </article>
+
+      <article>
+        <h3>Základní zabezpečení SSH</h3>
+        <p>
+          Konfigurační soubor SSH serveru:
+        </p>
+        <pre><code>sudo nano /etc/ssh/sshd_config</code></pre>
+
+        <pre><code>PermitRootLogin no
+PasswordAuthentication no</code></pre>
+      </article>
+
+      <article>
+        <h3>Restart SSH služby (bezpečně)</h3>
+        <p>
+          ⚠️ Vždy měj otevřenou druhou SSH session.
+        </p>
+        <pre><code>sudo systemctl restart ssh</code></pre>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Terminál a zabezpečené SSH</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Přihlas se na server přes SSH</li>
+          <li>Zjisti, kde se nacházíš</li>
+          <li>Přejdi do <code>/etc</code></li>
+          <li>Vypiš obsah adresáře</li>
+          <li>Vygeneruj SSH klíč</li>
+          <li>Zakaž přihlášení rootem</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>ssh user@server
+pwd
+cd /etc
+ls
+ssh-keygen -t ed25519
+sudo nano /etc/ssh/sshd_config
+PermitRootLogin no</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Terminál je hlavní nástroj admina.
+          SSH je vstupní brána do serveru.
+          Pokud máš obojí pod kontrolou, máš pevný základ
+          pro další správu systému.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>

@@ -4,13 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kapitola 1 – Co je SysAdmin</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-  <style>
-    :root { --background-color:#0e1117; --color:#e6edf3; --muted-color:#9da7b3; }
-    body { background:var(--background-color); color:var(--color); }
-    nav { background:#0b0f14; border-bottom:1px solid #1f2937; }
-    article { background:#020617; border:1px solid #1f2937; border-radius:12px; padding:1.5rem; margin-bottom:1.5rem; }
-  </style>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
 </head>
 <body>
 
@@ -23,48 +20,92 @@
 </nav>
 
 <main class="container">
-  <hgroup>
-    <h2>Kapitola 1: Co je SysAdmin</h2>
-    <h3>Úplné základy IT světa</h3>
-  </hgroup>
+  <div class="layout">
 
-  <article>
-    <p>
-      <strong>SysAdmin (System Administrator)</strong> je člověk, který se stará o to,
-      aby IT systémy fungovaly správně, bezpečně a bez výpadků.
-    </p>
-  </article>
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
 
-  <article>
-    <h3>Co má SysAdmin na starosti</h3>
-    <ul>
-      <li>Servery</li>
-      <li>Sítě</li>
-      <li>Uživatele</li>
-      <li>Zálohy</li>
-      <li>Bezpečnost</li>
-    </ul>
-  </article>
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
 
-  <article>
-    <h3>Server vs. běžný počítač</h3>
-    <p>
-      Server je počítač navržený pro nepřetržitý provoz
-      a vzdálenou správu.
-    </p>
-  </article>
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. SSH a terminál</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+      </ul>
+    </aside>
 
-  <article>
-    <h3>Shrnutí</h3>
-    <p>
-      SysAdmin je základ IT infrastruktury.
-      Bez něj by moderní IT nefungovalo.
-    </p>
-  </article>
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 1: Co je SysAdmin</h2>
+        <h3>Základní orientace v IT světě</h3>
+      </hgroup>
+
+      <article>
+        <p>
+          SysAdmin (System Administrator) je člověk, který má na starosti
+          správu IT systémů tak, aby byly dostupné, bezpečné a spolehlivé.
+        </p>
+      </article>
+
+      <article>
+        <h3>Co má SysAdmin typicky na starosti</h3>
+        <ul>
+          <li>servery</li>
+          <li>sítě</li>
+          <li>uživatele</li>
+          <li>zálohování</li>
+          <li>bezpečnost</li>
+          <li>monitoring</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Proč je SysAdmin důležitý</h3>
+        <p>
+          Bez správy se IT infrastruktura rychle stává nestabilní,
+          nebezpečnou a nespolehlivou.
+        </p>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – SysAdmin mindset</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Uveď 3 problémy, které by vznikly bez správy serveru</li>
+          <li>Zamysli se, proč je prevence důležitější než řešení výpadku</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <ul>
+            <li>výpadky služeb</li>
+            <li>bezpečnostní incidenty</li>
+            <li>ztráta dat</li>
+            <li>chaotická konfigurace</li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
+
+  </div>
 </main>
 
 <footer class="container">
-  <small><a href="../index.html">← Zpět na rozcestník</a></small>
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
 </footer>
 
 </body>

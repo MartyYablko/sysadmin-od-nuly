@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kapitola 2 – Jak funguje počítač a OS</title>
+  <title>Kapitola 2 – Jak funguje OS</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-  <style>
-    :root { --background-color:#0e1117; --color:#e6edf3; --muted-color:#9da7b3; }
-    body { background:var(--background-color); color:var(--color); }
-    nav { background:#0b0f14; border-bottom:1px solid #1f2937; }
-    article { background:#020617; border:1px solid #1f2937; border-radius:12px; padding:1.5rem; margin-bottom:1.5rem; }
-  </style>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
 </head>
 <body>
 
@@ -24,38 +21,95 @@
 </nav>
 
 <main class="container">
-  <hgroup>
-    <h2>Kapitola 2: Jak funguje počítač a operační systém</h2>
-    <h3>Hardware a software bez magie</h3>
-  </hgroup>
+  <div class="layout">
 
-  <article>
-    <h3>Hardware</h3>
-    <p>CPU, RAM a disk jsou základní stavební kameny počítače.</p>
-  </article>
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
 
-  <article>
-    <h3>Software</h3>
-    <p>Programy, které na hardware běží.</p>
-  </article>
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
 
-  <article>
-    <h3>Operační systém</h3>
-    <p>
-      Operační systém řídí hardware a poskytuje prostředí pro aplikace.
-    </p>
-  </article>
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. SSH a terminál</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+      </ul>
+    </aside>
 
-  <article>
-    <h3>Kernel</h3>
-    <p>
-      Kernel je jádro operačního systému a má plnou kontrolu nad hardwarem.
-    </p>
-  </article>
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 2: Jak funguje počítač a operační systém</h2>
+        <h3>Hardware, software a kernel bez magie</h3>
+      </hgroup>
+
+      <article>
+        <h3>Hardware</h3>
+        <p>
+          Hardware jsou fyzické komponenty počítače:
+          CPU, RAM, disk, síťové karty.
+        </p>
+      </article>
+
+      <article>
+        <h3>Software</h3>
+        <p>
+          Software jsou programy, které na hardware běží
+          a dávají mu smysl.
+        </p>
+      </article>
+
+      <article>
+        <h3>Operační systém</h3>
+        <p>
+          Operační systém řídí hardware, procesy,
+          paměť a komunikaci mezi programy.
+        </p>
+      </article>
+
+      <article>
+        <h3>Kernel</h3>
+        <p>
+          Kernel je jádro operačního systému a má
+          nejvyšší oprávnění.
+        </p>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Hardware vs Software</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Rozděl položky na hardware a software:</li>
+          <li>CPU, RAM, Linux, Firefox, Disk</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <ul>
+            <li><strong>Hardware:</strong> CPU, RAM, Disk</li>
+            <li><strong>Software:</strong> Linux, Firefox</li>
+          </ul>
+        </div>
+      </article>
+
+    </section>
+
+  </div>
 </main>
 
 <footer class="container">
-  <small><a href="../index.html">← Zpět na rozcestník</a></small>
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
 </footer>
 
 </body>

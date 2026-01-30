@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 7 – Balíčky a aktualizace (apt)</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="06-uzivatele-skupiny-prava.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+        <li><a href="07-balicky-a-aktualizace.html">7. Balíčky & apt</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 7: Balíčky a aktualizace (apt)</h2>
+        <h3>Jak se software instaluje, aktualizuje a udržuje</h3>
+      </hgroup>
+
+      <article>
+        <h3>Co je balíček</h3>
+        <p>
+          V Linuxu se software instaluje pomocí <strong>balíčků</strong>.
+          Balíček obsahuje program, knihovny, konfiguraci a informace o závislostech.
+        </p>
+      </article>
+
+      <article>
+        <h3>Balíčkovací systém</h3>
+        <p>
+          Ubuntu a Debian používají balíčkovací systém <strong>APT</strong>.
+          Ten se stará o:
+        </p>
+        <ul>
+          <li>instalaci softwaru</li>
+          <li>aktualizace</li>
+          <li>řešení závislostí</li>
+          <li>bezpečnostní opravy</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Repozitáře</h3>
+        <p>
+          Repozitář je zdroj balíčků.
+          Server si z něj stahuje seznam dostupného softwaru.
+        </p>
+        <p>
+          Seznam repozitářů je v souboru:
+        </p>
+        <pre><code>/etc/apt/sources.list</code></pre>
+      </article>
+
+      <article>
+        <h3>Aktualizace seznamu balíčků</h3>
+        <p>
+          Než něco instaluješ nebo aktualizuješ, musíš
+          stáhnout aktuální seznam balíčků:
+        </p>
+        <pre><code>sudo apt update</code></pre>
+      </article>
+
+      <article>
+        <h3>Aktualizace systému</h3>
+        <p>
+          Aktualizace nainstalovaného softwaru:
+        </p>
+        <pre><code>sudo apt upgrade</code></pre>
+        <p>
+          Kombinace obou kroků:
+        </p>
+        <pre><code>sudo apt update && sudo apt upgrade</code></pre>
+      </article>
+
+      <article>
+        <h3>Instalace balíčku</h3>
+        <pre><code>sudo apt install název_balíčku</code></pre>
+        <p>
+          Například:
+        </p>
+        <pre><code>sudo apt install htop</code></pre>
+      </article>
+
+      <article>
+        <h3>Odstranění balíčku</h3>
+        <pre><code>sudo apt remove název_balíčku</code></pre>
+        <p>
+          Odstranění včetně konfigurace:
+        </p>
+        <pre><code>sudo apt purge název_balíčku</code></pre>
+      </article>
+
+      <article>
+        <h3>Proč jsou aktualizace kritické</h3>
+        <ul>
+          <li>opravy bezpečnostních chyb</li>
+          <li>stabilita systému</li>
+          <li>ochrana před útoky</li>
+        </ul>
+        <p>
+          Neaktualizovaný server je <strong>riziko</strong>.
+        </p>
+      </article>
+
+      <article>
+        <h3>Automatické aktualizace</h3>
+        <p>
+          Ubuntu umožňuje automatické bezpečnostní aktualizace:
+        </p>
+        <pre><code>sudo apt install unattended-upgrades</code></pre>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Práce s balíčky</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Aktualizuj seznam balíčků</li>
+          <li>Aktualizuj systém</li>
+          <li>Nainstaluj balíček <code>htop</code></li>
+          <li>Spusť <code>htop</code></li>
+          <li>Balíček zase odinstaluj</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>sudo apt update
+sudo apt upgrade
+sudo apt install htop
+htop
+sudo apt remove htop</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Balíčky a aktualizace jsou každodenní chleba sysadmina.
+          Pokud máš pod kontrolou <code>apt</code>,
+          máš pod kontrolou software i bezpečnost serveru.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>

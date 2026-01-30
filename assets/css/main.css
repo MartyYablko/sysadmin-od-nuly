@@ -1,0 +1,204 @@
+/* === ZÁKLADNÍ THEME === */
+:root {
+  --bg-main: #0e1117;
+  --bg-card: #020617;
+  --bg-nav: #0b0f14;
+  --border: #1f2937;
+
+  --text-main: #e6edf3;
+  --text-muted: #9da7b3;
+  --accent: #4aa3ff;
+
+  --radius: 12px;
+}
+
+/* === GLOBAL === */
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+nav {
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border);
+}
+
+hgroup h3 {
+  color: var(--text-muted);
+}
+
+/* === KARTY / SEKCE === */
+article,
+.section-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* === LAB SEKCE === */
+.lab {
+  border-left: 4px solid var(--accent);
+}
+
+/* === ODKAZY === */
+a {
+  color: var(--accent);
+}
+
+a[role="button"] {
+  background-color: var(--accent);
+  border: none;
+}
+
+/* === FOOTER === */
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding-top: 1rem;
+  color: var(--text-muted);
+}
+
+/* === KÓD === */
+pre {
+  background: #020617;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* === LAYOUT === */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  height: fit-content;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.sidebar h4 {
+  margin-top: 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  margin-bottom: 0.4rem;
+}
+
+.sidebar a {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background: #020617;
+}
+
+.sidebar a.active {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+}
+
+/* === CONTENT === */
+.content article {
+  max-width: 900px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: relative;
+  }
+}
+
+h2 {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+/* === PROGRESS BAR === */
+.progress-box {
+  margin-bottom: 1rem;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #020617;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #22c55e);
+  transition: width 0.6s ease;
+}
+
+/* === ANIMACE === */
+article {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* === SIDEBAR HOVER === */
+.sidebar a {
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.sidebar a:hover {
+  padding-left: 1rem;
+}
+/* === LAB ÚKOLY & ŘEŠENÍ === */
+.lab-solution {
+  filter: blur(6px);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.lab-solution.visible {
+  filter: blur(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.show-solution {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

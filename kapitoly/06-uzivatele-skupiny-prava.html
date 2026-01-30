@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kapitola 6 – Uživatelé, skupiny a práva</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="05-ssh-a-terminal.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. SSH a terminál</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 6: Uživatelé, skupiny a přístupová práva</h2>
+        <h3>Základ bezpečnosti Linux serveru</h3>
+      </hgroup>
+
+      <article>
+        <h3>Proč tohle řešit</h3>
+        <p>
+          Linux je <strong>víceuživatelský systém</strong>.
+          To znamená, že každý proces běží pod konkrétním uživatelem
+          a má jasně daná oprávnění.
+        </p>
+        <p>
+          Špatně nastavená práva = bezpečnostní problém.
+        </p>
+      </article>
+
+      <article>
+        <h3>Uživatelé v Linuxu</h3>
+        <p>
+          Každý uživatel má:
+        </p>
+        <ul>
+          <li>uživatelské jméno</li>
+          <li>UID (User ID)</li>
+          <li>domovský adresář</li>
+          <li>shell</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Root a sudo</h3>
+        <p>
+          <strong>root</strong> má neomezená práva.
+          Běžná práce se <strong>nikdy</strong> nedělá jako root.
+        </p>
+        <ul>
+          <li>administrace přes <code>sudo</code></li>
+          <li>auditovatelné příkazy</li>
+          <li>menší riziko zničení systému</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Skupiny</h3>
+        <p>
+          Skupiny umožňují sdílet oprávnění mezi více uživateli.
+        </p>
+        <ul>
+          <li>primární skupina</li>
+          <li>sekundární skupiny</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Přístupová práva (permissions)</h3>
+        <p>
+          Každý soubor má práva:
+        </p>
+        <ul>
+          <li><strong>r</strong> – read</li>
+          <li><strong>w</strong> – write</li>
+          <li><strong>x</strong> – execute</li>
+        </ul>
+        <p>
+          A platí pro:
+        </p>
+        <ul>
+          <li>owner</li>
+          <li>group</li>
+          <li>others</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Výpis práv</h3>
+        <pre><code>ls -l</code></pre>
+        <pre><code>-rw-r--r-- 1 user group soubor.txt</code></pre>
+      </article>
+
+      <article>
+        <h3>Změna práv a vlastníka</h3>
+        <pre><code>chmod 644 soubor.txt
+chown user:group soubor.txt</code></pre>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Uživatelé a práva</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Vytvoř uživatele <code>testuser</code></li>
+          <li>Nastav mu heslo</li>
+          <li>Přepni se na něj</li>
+          <li>Vytvoř soubor <code>tajny.txt</code></li>
+          <li>Nastav práva pouze pro vlastníka</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>sudo useradd testuser
+sudo passwd testuser
+su - testuser
+touch tajny.txt
+chmod 600 tajny.txt
+ls -l tajny.txt</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Správná práce s uživateli a právy je základ bezpečnosti.
+          Bez toho není žádný Linux server dlouhodobě udržitelný.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>

@@ -3,67 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SysAdmin od nuly</title>
+  <title>SysAdmin od nuly – Online učebnice</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-  <style>
-    :root {
-      --background-color:#0e1117;
-      --color:#e6edf3;
-      --muted-color:#9da7b3;
-    }
-    body { background:var(--background-color); color:var(--color); }
-    nav { background:#0b0f14; border-bottom:1px solid #1f2937; }
-    article {
-      background:#020617;
-      border:1px solid #1f2937;
-      border-radius:12px;
-      padding:1.5rem;
-      margin-bottom:1.5rem;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
 
 <nav class="container-fluid">
   <ul><li><strong>SysAdmin od nuly</strong></li></ul>
-  <ul><li><a href="index.html">Domů</a></li></ul>
+  <ul>
+    <li><a href="index.html">Domů</a></li>
+    <li><a href="kapitoly/01-sysadmin.html" role="button">Začít studovat</a></li>
+  </ul>
 </nav>
 
 <main class="container">
-  <hgroup>
-    <h2>Online učebnice správy systémů</h2>
-    <h3>Od úplných základů k reálné praxi</h3>
-  </hgroup>
+  <div class="layout">
 
-  <article>
-    <h4>Kapitola 1 – Co je SysAdmin</h4>
-    <p>Základní přehled IT světa a role správce systémů.</p>
-    <a href="kapitoly/01-sysadmin.html" role="button">Otevřít</a>
-  </article>
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
 
-  <article>
-    <h4>Kapitola 2 – Jak funguje počítač a OS</h4>
-    <p>Hardware, software, operační systém a kernel.</p>
-    <a href="kapitoly/02-os.html" role="button">Otevřít</a>
-  </article>
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…" style="margin-bottom:1rem">
 
-  <article>
-    <h4>Kapitola 3 – Linux: základy</h4>
-    <p>Proč Linux vládne serverům.</p>
-    <a href="kapitoly/03-linux.html" role="button">Otevřít</a>
-  </article>
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="kapitoly/01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="kapitoly/02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="kapitoly/03-linux.html">3. Linux – základy</a></li>
+        <li><a href="kapitoly/04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="kapitoly/05-ssh-a-terminal.html">5. SSH a terminál</a></li>
+        <li><a href="kapitoly/06-uzivatele-skupiny-prava.html">6. Uživatelé, skupiny a práva</a></li>
+        <li><a href="kapitoly/07-balicky-a-aktualizace.html">7. Balíčky & aktualizace (apt)</a></li>
+      </ul>
+    </aside>
 
-  <article>
-  <h4>Kapitola 4 – Instalace Linux Serveru</h4>
-  <p>První skutečný server krok za krokem.</p>
-  <a href="kapitoly/04-linux-instalace.html" role="button">Otevřít</a>
-</article>
+    <section class="content">
+      <hgroup>
+        <h2>Online učebnice správy systémů</h2>
+        <h3>Od úplných základů k reálné praxi</h3>
+      </hgroup>
+
+      <article>
+        <p>
+          Vítej v učebnici <strong>SysAdmin od nuly</strong>.
+          Tento web tě provede světem správy Linux serverů krok za krokem,
+          bez chaosu a bez zbytečné teorie.
+        </p>
+      </article>
+
+      <article>
+        <h3>Jak učebnici používat</h3>
+        <ul>
+          <li>Postupuj kapitolu po kapitole</li>
+          <li>Každý LAB si vyzkoušej</li>
+          <li>Nespěchej</li>
+        </ul>
+      </article>
+    </section>
+
+  </div>
 </main>
 
 <footer class="container">
-  <small>© SysAdmin od nuly</small>
+  <small>© SysAdmin od nuly • <a href="https://github.com/MartyYablko/sysadmin-od-nuly">GitHub</a></small>
 </footer>
 
 </body>
 </html>
-

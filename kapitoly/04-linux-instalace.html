@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kapitola 3 – Linux: základy</title>
+  <title>Kapitola 4 – Instalace Linux Serveru</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
   <link rel="stylesheet" href="../assets/css/main.css">
@@ -15,15 +15,14 @@
   <ul><li><strong>SysAdmin od nuly</strong></li></ul>
   <ul>
     <li><a href="../index.html">Domů</a></li>
-    <li><a href="02-os.html">← Předchozí</a></li>
-    <li><a href="04-linux-instalace.html">Další →</a></li>
+    <li><a href="03-linux.html">← Předchozí</a></li>
+    <li><a href="05-ssh-a-terminal.html">Další →</a></li>
   </ul>
 </nav>
 
 <main class="container">
   <div class="layout">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="progress-box">
         <div class="progress-label">Postup studia</div>
@@ -47,71 +46,67 @@
       </ul>
     </aside>
 
-    <!-- CONTENT -->
     <section class="content">
 
       <hgroup>
-        <h2>Kapitola 3: Linux – základy</h2>
-        <h3>Serverový operační systém</h3>
+        <h2>Kapitola 4: Instalace Linux Serveru</h2>
+        <h3>První skutečný server krok za krokem</h3>
       </hgroup>
 
-      <!-- TEORIE -->
       <article>
-        <h3>Co je Linux</h3>
-        <p>
-          Linux není jeden konkrétní operační systém, ale <strong>jádro (kernel)</strong>,
-          na kterém jsou postavené různé distribuce.
-        </p>
-      </article>
-
-      <article>
-        <h3>Proč Linux dominuje serverům</h3>
+        <h3>Co budeme instalovat</h3>
         <ul>
-          <li>stabilita</li>
-          <li>bezpečnost</li>
-          <li>výkon</li>
-          <li>automatizace</li>
-          <li>open-source</li>
+          <li>Ubuntu Server LTS</li>
+          <li>Virtuální stroj</li>
+          <li>Server bez grafického rozhraní</li>
         </ul>
       </article>
 
       <article>
-        <h3>Distribuce</h3>
+        <h3>Virtuální stroj</h3>
         <p>
-          Distribuce kombinuje kernel, balíčky a nástroje.
+          Pro učení je ideální použít virtualizaci
+          (VirtualBox / VMware).
         </p>
+      </article>
+
+      <article>
+        <h3>Základní parametry VM</h3>
         <ul>
-          <li>Ubuntu Server – ideální start</li>
-          <li>Debian – maximální stabilita</li>
-          <li>Rocky / Alma – enterprise svět</li>
+          <li>RAM: min. 2 GB</li>
+          <li>CPU: 2 jádra</li>
+          <li>Disk: 20–30 GB</li>
         </ul>
       </article>
 
       <article>
-        <h3>Server vs Desktop</h3>
-        <p>
-          Linux server obvykle běží bez grafického rozhraní
-          a spravuje se přes terminál.
-        </p>
+        <h3>Instalace systému</h3>
+        <ol>
+          <li>Vyber jazyk</li>
+          <li>Nastav síť (DHCP)</li>
+          <li>Vytvoř uživatele</li>
+          <li>Zapni OpenSSH Server</li>
+        </ol>
       </article>
 
-      <!-- LAB NA KONCI -->
+      <!-- LAB -->
       <article class="lab">
-        <h3>🧪 LAB – Linux distribuce</h3>
+        <h3>🧪 LAB – Instalace serveru</h3>
 
         <h4>Úkoly</h4>
         <ol>
-          <li>Najdi oficiální web Ubuntu Server</li>
-          <li>Zjisti, co znamená LTS</li>
-          <li>Napiš si, proč je LTS vhodné pro server</li>
+          <li>Nainstaluj Ubuntu Server do VM</li>
+          <li>Zapni SSH během instalace</li>
+          <li>Přihlas se do konzole</li>
+          <li>Zjisti IP adresu serveru</li>
         </ol>
 
         <button class="show-solution">Zobrazit řešení</button>
 
         <div class="lab-solution">
+          <pre><code>ip a</code></pre>
           <p>
-            <strong>LTS (Long Term Support)</strong> znamená dlouhodobou podporu
-            (typicky 5 let), což je ideální pro stabilní serverové nasazení.
+            IP adresa se nachází u rozhraní <code>eth0</code> nebo <code>ens*</code>.
           </p>
         </div>
       </article>
