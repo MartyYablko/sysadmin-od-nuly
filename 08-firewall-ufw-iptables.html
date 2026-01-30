@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 8 – Firewall: ufw & iptables</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="07-balicky-a-aktualizace.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+        <li><a href="07-balicky-a-aktualizace.html">7. Balíčky & apt</a></li>
+        <li><a href="08-firewall-ufw-iptables.html">8. Firewall</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 8: Firewall – ufw a iptables</h2>
+        <h3>Jak chránit server a pochopit, co se děje pod kapotou</h3>
+      </hgroup>
+
+      <!-- ÚVOD -->
+      <article>
+        <h3>Proč je firewall zásadní</h3>
+        <p>
+          Jakmile je server připojený k síti (nebo internetu),
+          <strong>kdokoliv na světě</strong> se s ním může pokusit komunikovat.
+        </p>
+        <p>
+          Firewall je mechanizmus, který rozhoduje:
+          <em>„Tento provoz pustím, tenhle ne.“</em>
+        </p>
+        <p>
+          Bez firewallu spoléháš jen na to, že nikdo nic zlého nezkusí.
+          A to je v reálném světě špatná strategie.
+        </p>
+      </article>
+
+      <!-- ANALOGIE -->
+      <article>
+        <h3>Firewall – lidská analogie</h3>
+        <p>
+          Představ si server jako kancelářskou budovu:
+        </p>
+        <ul>
+          <li>dveře = síťové porty</li>
+          <li>návštěvníci = síťové pakety</li>
+          <li>recepce = firewall</li>
+        </ul>
+        <p>
+          Firewall kontroluje, kdo může dovnitř, kam může jít
+          a koho pošle pryč.
+        </p>
+      </article>
+
+      <!-- TECHNICKÝ ZÁKLAD -->
+      <article>
+        <h3>Co je síťový paket</h3>
+        <p>
+          Síťová komunikace probíhá v balíčcích zvaných <strong>pakety</strong>.
+          Každý paket obsahuje:
+        </p>
+        <ul>
+          <li>zdrojovou IP adresu</li>
+          <li>cílovou IP adresu</li>
+          <li>protokol (TCP / UDP)</li>
+          <li>cílový port</li>
+        </ul>
+        <p>
+          Firewall analyzuje tyto informace a rozhoduje.
+        </p>
+      </article>
+
+      <article>
+        <h3>Porty – co to skutečně znamená</h3>
+        <p>
+          Port je číslo, které určuje, <strong>jaká služba</strong>
+          má paket zpracovat.
+        </p>
+        <ul>
+          <li>22 – SSH</li>
+          <li>80 – HTTP</li>
+          <li>443 – HTTPS</li>
+        </ul>
+        <p>
+          Pokud služba neposlouchá na portu, nemá smysl ho povolovat.
+        </p>
+      </article>
+
+      <!-- IPTABLES -->
+      <article>
+        <h3>iptables – firewall na úrovni kernelu</h3>
+        <p>
+          <strong>iptables</strong> je nástroj pro konfiguraci firewallu,
+          který běží přímo v Linux kernelu (netfilter).
+        </p>
+        <p>
+          Je extrémně výkonný, ale také:
+        </p>
+        <ul>
+          <li>nepřehledný</li>
+          <li>snadno rozbitelný</li>
+          <li>neodpouští chyby</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Tabulky, chainy a pravidla (iptables)</h3>
+        <p>
+          iptables pracuje ve třech vrstvách:
+        </p>
+        <ul>
+          <li><strong>tabulka</strong> – typ zpracování</li>
+          <li><strong>chain</strong> – fáze průchodu paketu</li>
+          <li><strong>pravidlo</strong> – konkrétní podmínka</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Nejdůležitější chainy</h3>
+        <ul>
+          <li><code>INPUT</code> – provoz do serveru</li>
+          <li><code>OUTPUT</code> – provoz ze serveru</li>
+          <li><code>FORWARD</code> – server jako router</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Ukázka iptables pravidla – rozbor</h3>
+        <pre><code>iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code></pre>
+        <p>
+          Toto pravidlo říká:
+        </p>
+        <ul>
+          <li>vezmi příchozí provoz</li>
+          <li>pokud je TCP</li>
+          <li>na port 22</li>
+          <li>povol ho</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Proč iptables běžně nekonfigurujeme ručně</h3>
+        <p>
+          Ruční iptables pravidla:
+        </p>
+        <ul>
+          <li>se po rebootu ztratí</li>
+          <li>mohou tě zamknout ven</li>
+          <li>jsou špatně auditovatelná</li>
+        </ul>
+        <p>
+          Proto se používají nadstavby.
+        </p>
+      </article>
+
+      <!-- UFW -->
+      <article>
+        <h3>ufw – firewall pro každodenní praxi</h3>
+        <p>
+          <strong>ufw (Uncomplicated Firewall)</strong> je nástroj,
+          který převádí jednoduché příkazy na iptables pravidla.
+        </p>
+        <p>
+          Je navržený tak, aby:
+        </p>
+        <ul>
+          <li>minimalizoval chyby</li>
+          <li>byl čitelný</li>
+          <li>byl bezpečný</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Jak ufw ukládá konfiguraci</h3>
+        <p>
+          Konfigurace je uložena v:
+        </p>
+        <pre><code>/etc/ufw/</code></pre>
+        <ul>
+          <li><code>ufw.conf</code> – zapnuto / vypnuto</li>
+          <li><code>user.rules</code> – pravidla</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Default policy – nejdůležitější koncept</h3>
+        <p>
+          Základní bezpečnostní pravidlo zní:
+        </p>
+        <pre><code>zakázat vše a povolit jen nutné</code></pre>
+        <p>
+          Tomu se říká <strong>default deny</strong>.
+        </p>
+      </article>
+
+      <article>
+        <h3>Bezpečný postup zapnutí firewallu</h3>
+        <ol>
+          <li>povolit SSH</li>
+          <li>nastavit default policy</li>
+          <li>teprve potom zapnout firewall</li>
+        </ol>
+        <p>
+          Pokud tenhle postup nedodržíš, <strong>odřízneš se</strong>.
+        </p>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Firewall krok za krokem</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Zkontroluj stav firewallu</li>
+          <li>Nastav default deny incoming</li>
+          <li>Povol SSH</li>
+          <li>Zapni firewall</li>
+          <li>Zobraz iptables pravidla vytvořená ufw</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>sudo ufw status
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw enable
+sudo iptables -L -n</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Firewall není o jednom příkazu, ale o způsobu přemýšlení.
+          Čím méně věcí povolíš, tím menší máš útokovou plochu.
+        </p>
+        <p>
+          Pokud rozumíš ufw i iptables, rozumíš tomu,
+          <strong>jak Linux chrání sám sebe</strong>.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>
