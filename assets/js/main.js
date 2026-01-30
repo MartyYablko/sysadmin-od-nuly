@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "04-linux-instalace.html",
     "05-ssh-a-terminal.html",
     "06-uzivatele-skupiny-prava.html",
-    "07-balicky-a-aktualizace.html"
+    "07-balicky-a-aktualizace.html",
+    "08-firewall-ufw-iptables.html"
   ];
 
   const currentPage = window.location.pathname.split("/").pop();
