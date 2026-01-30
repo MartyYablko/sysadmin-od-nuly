@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 3 – Linux: základy</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    :root {
+      --background-color: #0e1117;
+      --color: #e6edf3;
+      --muted-color: #9da7b3;
+      --primary: #4aa3ff;
+    }
+    body { background: var(--background-color); color: var(--color); }
+    nav { background: #0b0f14; border-bottom: 1px solid #1f2937; }
+    hgroup h3 { color: var(--muted-color); }
+    article, .lab {
+      background: #020617;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    footer { border-top: 1px solid #1f2937; margin-top: 3rem; }
+  </style>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul>
+    <li><strong>SysAdmin od nuly</strong></li>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="02-os.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="grid">
+    <section>
+
+      <hgroup>
+        <h2>Kapitola 3: Linux – co to je a proč se používá</h2>
+        <h3>Základní kámen moderních serverů</h3>
+      </hgroup>
+
+      <article>
+        <h3>Co je Linux</h3>
+        <p>
+          <strong>Linux není jeden operační systém</strong>, ale jádro (kernel),
+          na kterém jsou postavené různé operační systémy – tzv. distribuce.
+        </p>
+        <p>
+          Linux se používá hlavně na serverech, v cloudu, na routerech,
+          v telefonech (Android) a v embedded zařízeních.
+        </p>
+      </article>
+
+      <article>
+        <h3>Proč většina serverů běží na Linuxu</h3>
+        <ul>
+          <li>Stabilita (běží měsíce i roky bez restartu)</li>
+          <li>Bezpečnost</li>
+          <li>Výkon</li>
+          <li>Open-source</li>
+          <li>Plná kontrola přes terminál</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Linux vs Windows (server pohled)</h3>
+        <p>
+          Windows je skvělý desktopový systém.  
+          Linux je ale navržený tak, aby běžel:
+        </p>
+        <ul>
+          <li>bez grafického rozhraní</li>
+          <li>vzdáleně</li>
+          <li>automatizovaně</li>
+          <li>na minimálním hardware</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Distribuce Linuxu</h3>
+        <p>
+          Distribuce = Linux kernel + balíčky + nástroje.
+        </p>
+        <ul>
+          <li><strong>Ubuntu Server</strong> – ideální pro začátečníky</li>
+          <li><strong>Debian</strong> – extrémně stabilní</li>
+          <li>RHEL / Rocky / Alma – enterprise svět</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Desktop vs Server</h3>
+        <p>
+          Linux server:
+        </p>
+        <ul>
+          <li>nemá grafiku</li>
+          <li>ovládá se přes terminál</li>
+          <li>je optimalizovaný na služby</li>
+        </ul>
+      </article>
+
+      <section class="lab">
+        <h3>🧪 LAB 3 – Příprava na instalaci Linuxu</h3>
+        <ol>
+          <li>Rozhodni se pro distribuci (doporučeno: Ubuntu Server)</li>
+          <li>Stáhni ISO z oficiálních stránek</li>
+          <li>Ulož ISO do složky pro VM</li>
+        </ol>
+        <p>
+          V další kapitole Linux <strong>nainstalujeme krok za krokem</strong>.
+        </p>
+      </section>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Linux je základ serverového světa.
+          Pokud se ho naučíš, otevře se ti většina IT infrastruktury.
+        </p>
+      </article>
+
+    </section>
+  </div>
+</main>
+
+<footer class="container">
+  <small>
+    <a href="../index.html">SysAdmin od nuly</a>
+  </small>
+</footer>
+
+</body>
+</html>
