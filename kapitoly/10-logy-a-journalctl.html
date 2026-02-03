@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 10 – Logy a journalctl</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="09-fail2ban.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+        <li><a href="07-balicky-a-aktualizace.html">7. Balíčky & apt</a></li>
+        <li><a href="08-firewall-ufw-iptables.html">8. Firewall</a></li>
+        <li><a href="09-fail2ban.html">9. Fail2Ban</a></li>
+        <li><a href="10-logy-a-journalctl.html">10. Logy</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 10: Logy a journalctl</h2>
+        <h3>Jak zjistit, co se na serveru opravdu děje</h3>
+      </hgroup>
+
+      <!-- ÚVOD -->
+      <article>
+        <h3>Proč jsou logy pro admina klíčové</h3>
+        <p>
+          Logy jsou <strong>deník serveru</strong>.
+          Když se něco pokazí, logy jsou první místo,
+          kam se admin dívá.
+        </p>
+        <p>
+          Pokud neumíš číst logy, spravuješ server „naslepo“.
+        </p>
+      </article>
+
+      <!-- ANALOGIE -->
+      <article>
+        <h3>Lidská analogie</h3>
+        <p>
+          Představ si server jako fabriku:
+        </p>
+        <ul>
+          <li>stroje = služby</li>
+          <li>problém = porucha</li>
+          <li>logy = záznam z kamer a senzorů</li>
+        </ul>
+        <p>
+          Bez záznamů jen hádáš, co se stalo.
+        </p>
+      </article>
+
+      <!-- CO JSOU LOGY -->
+      <article>
+        <h3>Co jsou logy</h3>
+        <p>
+          Log je textový záznam událostí:
+        </p>
+        <ul>
+          <li>start služby</li>
+          <li>chyba</li>
+          <li>přihlášení uživatele</li>
+          <li>síťová komunikace</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Kde Linux ukládá logy</h3>
+        <p>
+          Tradičně jsou logy v adresáři:
+        </p>
+        <pre><code>/var/log</code></pre>
+        <p>
+          Najdeš tam například:
+        </p>
+        <ul>
+          <li><code>auth.log</code> – přihlášení, SSH</li>
+          <li><code>syslog</code> – systémové zprávy</li>
+          <li><code>kern.log</code> – kernel</li>
+        </ul>
+      </article>
+
+      <!-- SYSTEMD -->
+      <article>
+        <h3>systemd a journal</h3>
+        <p>
+          Moderní Linux používá <strong>systemd</strong>,
+          který má vlastní logovací systém zvaný <strong>journal</strong>.
+        </p>
+        <p>
+          Ten ukládá logy centrálně a strukturovaně.
+        </p>
+      </article>
+
+      <article>
+        <h3>journalctl – nástroj pro čtení logů</h3>
+        <p>
+          <code>journalctl</code> je příkaz pro práci s journalem.
+        </p>
+        <pre><code>journalctl</code></pre>
+        <p>
+          Zobrazí kompletní logy systému (od nejstarších).
+        </p>
+      </article>
+
+      <!-- PRAKTICKÉ POUŽITÍ -->
+      <article>
+        <h3>Nejpoužívanější přepínače journalctl</h3>
+        <ul>
+          <li><code>-xe</code> – poslední chyby</li>
+          <li><code>-f</code> – sledování v reálném čase</li>
+          <li><code>-b</code> – logy od posledního bootu</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Logy konkrétní služby</h3>
+        <p>
+          Například SSH:
+        </p>
+        <pre><code>journalctl -u ssh</code></pre>
+        <p>
+          To je extrémně důležité při ladění přístupu.
+        </p>
+      </article>
+
+      <article>
+        <h3>Časové filtrování logů</h3>
+        <pre><code>journalctl --since "1 hour ago"</code></pre>
+        <pre><code>journalctl --since today</code></pre>
+      </article>
+
+      <!-- AUTH LOG -->
+      <article>
+        <h3>auth.log – bezpečnostní zlato</h3>
+        <p>
+          Soubor <code>/var/log/auth.log</code> obsahuje:
+        </p>
+        <ul>
+          <li>SSH pokusy</li>
+          <li>sudo příkazy</li>
+          <li>selhání přihlášení</li>
+        </ul>
+        <p>
+          Fail2Ban čte právě tento log.
+        </p>
+      </article>
+
+      <!-- ČASTÉ CHYBY -->
+      <article>
+        <h3>Typické chyby začátečníků</h3>
+        <ul>
+          <li>čtou špatný log</li>
+          <li>hledají „error“ místo kontextu</li>
+          <li>nepoužívají časové filtrování</li>
+        </ul>
+      </article>
+
+      <!-- MYŠLENÍ ADMINA -->
+      <article>
+        <h3>Jak přemýšlí sysadmin při problému</h3>
+        <ol>
+          <li>Co nefunguje?</li>
+          <li>Kdy to přestalo fungovat?</li>
+          <li>Jaká služba je za to zodpovědná?</li>
+          <li>Jaké logy s tím souvisí?</li>
+        </ol>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Práce s logy</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Zobraz poslední chyby systému</li>
+          <li>Zobraz logy SSH služby</li>
+          <li>Sleduj logy v reálném čase</li>
+          <li>Najdi záznam o posledním přihlášení</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>journalctl -xe
+journalctl -u ssh
+journalctl -f
+sudo tail /var/log/auth.log</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Logy jsou hlavní diagnostický nástroj admina.
+          Naučit se je číst znamená naučit se řešit problémy.
+        </p>
+        <p>
+          Pokud rozumíš journalctl a <code>/var/log</code>,
+          máš obrovskou výhodu oproti začátečníkům.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kapitola 9 – Fail2Ban</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+
+<nav class="container-fluid">
+  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
+  <ul>
+    <li><a href="../index.html">Domů</a></li>
+    <li><a href="08-firewall-ufw-iptables.html">← Předchozí</a></li>
+    <li><a href="#">Další →</a></li>
+  </ul>
+</nav>
+
+<main class="container">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="progress-box">
+        <div class="progress-label">Postup studia</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <input type="search" id="searchInput" placeholder="Hledat kapitolu…">
+      <input type="search" id="contentSearch" placeholder="Hledat v kapitole…">
+      <small id="searchInfo"></small>
+
+      <h4>Kapitoly</h4>
+      <ul>
+        <li><a href="01-sysadmin.html">1. Co je SysAdmin</a></li>
+        <li><a href="02-os.html">2. Jak funguje OS</a></li>
+        <li><a href="03-linux.html">3. Linux – základy</a></li>
+        <li><a href="04-linux-instalace.html">4. Instalace Linuxu</a></li>
+        <li><a href="05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+        <li><a href="06-uzivatele-skupiny-prava.html">6. Uživatelé a práva</a></li>
+        <li><a href="07-balicky-a-aktualizace.html">7. Balíčky & apt</a></li>
+        <li><a href="08-firewall-ufw-iptables.html">8. Firewall</a></li>
+        <li><a href="09-fail2ban.html">9. Fail2Ban</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <hgroup>
+        <h2>Kapitola 9: Fail2Ban</h2>
+        <h3>Automatická obrana proti brute-force útokům</h3>
+      </hgroup>
+
+      <!-- ÚVOD -->
+      <article>
+        <h3>Proč firewall nestačí</h3>
+        <p>
+          Firewall rozhoduje, <em>kdo se může připojit</em>,
+          ale neřeší <strong>chování po připojení</strong>.
+        </p>
+        <p>
+          Útočník může mít povolený přístup (např. na SSH port),
+          ale zkouší tisíce hesel.
+        </p>
+        <p>
+          A přesně tady přichází na řadu <strong>Fail2Ban</strong>.
+        </p>
+      </article>
+
+      <!-- ANALOGIE -->
+      <article>
+        <h3>Lidská analogie</h3>
+        <p>
+          Představ si:
+        </p>
+        <ul>
+          <li>Firewall = dveře</li>
+          <li>Fail2Ban = ostraha</li>
+        </ul>
+        <p>
+          Když někdo klepe jednou – OK.  
+          Když buší pořád dokola – <strong>ostraha ho vyvede ven</strong>.
+        </p>
+      </article>
+
+      <!-- CO JE FAIL2BAN -->
+      <article>
+        <h3>Co je Fail2Ban</h3>
+        <p>
+          Fail2Ban je služba, která:
+        </p>
+        <ul>
+          <li>sleduje logy</li>
+          <li>hledá podezřelé chování</li>
+          <li>automaticky blokuje IP adresy</li>
+        </ul>
+        <p>
+          Blokace se děje pomocí firewallu (ufw / iptables).
+        </p>
+      </article>
+
+      <!-- JAK FUNGUJE -->
+      <article>
+        <h3>Jak Fail2Ban funguje technicky</h3>
+        <ol>
+          <li>čte logy (např. <code>/var/log/auth.log</code>)</li>
+          <li>porovnává je s pravidly (regex)</li>
+          <li>počítá počet selhání</li>
+          <li>při překročení limitu blokuje IP</li>
+        </ol>
+      </article>
+
+      <article>
+        <h3>Co je brute-force útok</h3>
+        <p>
+          Brute-force je útok, kdy útočník:
+        </p>
+        <ul>
+          <li>zkouší mnoho hesel</li>
+          <li>automatizovaně</li>
+          <li>často z tisíců IP adres</li>
+        </ul>
+        <p>
+          Fail2Ban ho <strong>nezastaví úplně</strong>,
+          ale výrazně ho zpomalí a odradí.
+        </p>
+      </article>
+
+      <!-- INSTALACE -->
+      <article>
+        <h3>Instalace Fail2Ban</h3>
+        <pre><code>sudo apt install fail2ban</code></pre>
+        <p>
+          Po instalaci služba běží automaticky.
+        </p>
+      </article>
+
+      <!-- KONFIGURACE -->
+      <article>
+        <h3>Konfigurační filozofie</h3>
+        <p>
+          Nikdy neupravuj <code>jail.conf</code> přímo.
+        </p>
+        <p>
+          Vlastní konfigurace patří do:
+        </p>
+        <pre><code>/etc/fail2ban/jail.local</code></pre>
+      </article>
+
+      <article>
+        <h3>Základní pojmy</h3>
+        <ul>
+          <li><strong>jail</strong> – ochrana služby</li>
+          <li><strong>filter</strong> – jak poznat útok</li>
+          <li><strong>action</strong> – co udělat (blokace)</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Základní konfigurace SSH jail</h3>
+        <pre><code>[sshd]
+enabled = true
+port = ssh
+maxretry = 5
+bantime = 10m
+findtime = 10m</code></pre>
+      </article>
+
+      <article>
+        <h3>Vysvětlení konfigurace</h3>
+        <ul>
+          <li><code>enabled</code> – zapnutí ochrany</li>
+          <li><code>maxretry</code> – kolik pokusů je povoleno</li>
+          <li><code>bantime</code> – jak dlouho je IP blokována</li>
+          <li><code>findtime</code> – časové okno</li>
+        </ul>
+      </article>
+
+      <!-- FIREWALL -->
+      <article>
+        <h3>Jak Fail2Ban blokuje IP</h3>
+        <p>
+          Fail2Ban nepřerušuje spojení sám.
+          Místo toho:
+        </p>
+        <ul>
+          <li>přidá pravidlo do firewallu</li>
+          <li>IP adresa je úplně odříznuta</li>
+        </ul>
+        <p>
+          Nejčastěji spolupracuje s <strong>ufw</strong>.
+        </p>
+      </article>
+
+      <!-- KONTROLA -->
+      <article>
+        <h3>Kontrola stavu Fail2Ban</h3>
+        <pre><code>sudo fail2ban-client status</code></pre>
+        <pre><code>sudo fail2ban-client status sshd</code></pre>
+      </article>
+
+      <article>
+        <h3>Typické chyby začátečníků</h3>
+        <ul>
+          <li>zapnutý Fail2Ban bez firewallu</li>
+          <li>příliš agresivní nastavení</li>
+          <li>blokace vlastní IP</li>
+        </ul>
+      </article>
+
+      <!-- LAB -->
+      <article class="lab">
+        <h3>🧪 LAB – Ochrana SSH pomocí Fail2Ban</h3>
+
+        <h4>Úkoly</h4>
+        <ol>
+          <li>Nainstaluj Fail2Ban</li>
+          <li>Vytvoř <code>jail.local</code></li>
+          <li>Povol SSH jail</li>
+          <li>Restartuj službu</li>
+          <li>Zkontroluj stav SSH ochrany</li>
+        </ol>
+
+        <button class="show-solution">Zobrazit řešení</button>
+
+        <div class="lab-solution">
+          <pre><code>sudo apt install fail2ban
+sudo nano /etc/fail2ban/jail.local
+sudo systemctl restart fail2ban
+sudo fail2ban-client status sshd</code></pre>
+        </div>
+      </article>
+
+      <article>
+        <h3>Shrnutí kapitoly</h3>
+        <p>
+          Fail2Ban je druhá obranná linie po firewallu.
+          Sleduje chování a reaguje automaticky.
+        </p>
+        <p>
+          V kombinaci s SSH klíči a firewallen
+          tvoří <strong>velmi silný základ zabezpečení</strong>.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="container">
+  <small><a href="../index.html">SysAdmin od nuly</a></small>
+</footer>
+
+</body>
+</html>

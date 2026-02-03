@@ -2,8 +2,8 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
+  <title>SysAdmin od nuly</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SysAdmin od nuly – Online učebnice</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
@@ -12,62 +12,54 @@
 <body>
 
 <nav class="container-fluid">
-  <ul><li><strong>SysAdmin od nuly</strong></li></ul>
   <ul>
-    <li><a href="index.html">Domů</a></li>
-    <li><a href="kapitoly/01-sysadmin.html" role="button">Začít studovat</a></li>
+    <li><strong>SysAdmin od nuly</strong></li>
+  </ul>
+  <ul>
+    <li><a href="#kapitoly">Kapitoly</a></li>
+    <li><a href="#" role="button">Začít studium</a></li>
   </ul>
 </nav>
 
 <main class="container">
-  <div class="layout">
 
-    <aside class="sidebar">
-      <div class="progress-box">
-        <div class="progress-label">Postup studia</div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
-      </div>
+  <!-- HERO BACKGROUND (BEZ TEXTU) -->
+  <section class="hero"></section>
 
-      <input type="search" id="searchInput" placeholder="Hledat kapitolu…" style="margin-bottom:1rem">
+  <div class="grid">
 
-      <h4>Kapitoly</h4>
-      <ul>
-        <li><a href="kapitoly/01-sysadmin.html">1. Co je SysAdmin</a></li>
-        <li><a href="kapitoly/02-os.html">2. Jak funguje OS</a></li>
-        <li><a href="kapitoly/03-linux.html">3. Linux – základy</a></li>
-        <li><a href="kapitoly/04-linux-instalace.html">4. Instalace Linuxu</a></li>
-        <li><a href="kapitoly/05-ssh-a-terminal.html">5. SSH a terminál</a></li>
-        <li><a href="kapitoly/06-uzivatele-skupiny-prava.html">6. Uživatelé, skupiny a práva</a></li>
-        <li><a href="kapitoly/07-balicky-a-aktualizace.html">7. Balíčky & aktualizace (apt)</a></li>
-        <li><a href="kapitoly/08-firewall-ufw-iptables.html">8. Firewall (ufw & iptables)</a></li>
-      </ul>
-    </aside>
+    <section id="kapitoly">
 
-    <section class="content">
       <hgroup>
-        <h2>Online učebnice správy systémů</h2>
-        <h3>Od úplných základů k reálné praxi</h3>
+        <h2>Obsah učebnice</h2>
+        <h3>Postupuj kapitolu po kapitole</h3>
       </hgroup>
 
       <article>
-        <h3>Jak učebnici používat</h3>
         <ul>
-          <li>Postupuj kapitolu po kapitole</li>
-          <li>Každý LAB si vyzkoušej</li>
-          <li>Nespěchej</li>
+          <li><a href="kapitoly/01-sysadmin.html">1. Co je SysAdmin</a></li>
+          <li><a href="kapitoly/02-os.html">2. Jak funguje operační systém</a></li>
+          <li><a href="kapitoly/03-linux.html">3. Linux – základy</a></li>
+          <li><a href="kapitoly/04-linux-instalace.html">4. Instalace Linuxu</a></li>
+          <li><a href="kapitoly/05-ssh-a-terminal.html">5. Terminál & SSH</a></li>
+          <li><a href="kapitoly/06-uzivatele-skupiny-prava.html">6. Uživatelé, skupiny a práva</a></li>
+          <li><a href="kapitoly/07-balicky-a-aktualizace.html">7. Balíčky & aktualizace (apt)</a></li>
+          <li><a href="kapitoly/08-firewall-ufw-iptables.html">8. Firewall (ufw & iptables)</a></li>
+          <li><a href="kapitoly/09-fail2ban.html">9. Fail2Ban</a></li>
+          <li><a href="kapitoly/10-logy-a-journalctl.html">10. Logy & journalctl</a></li>
         </ul>
       </article>
+
     </section>
 
   </div>
 </main>
 
 <footer class="container">
-  <small>© SysAdmin od nuly • <a href="https://github.com/MartyYablko/sysadmin-od-nuly">GitHub</a></small>
+  <small>
+    SysAdmin od nuly • Praktická učebnice Linux administrace
+  </small>
 </footer>
 
 </body>
 </html>
-
